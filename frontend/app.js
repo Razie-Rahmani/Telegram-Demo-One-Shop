@@ -167,11 +167,13 @@ async function getData() {
 
     } catch (error) {
         console.error(error.message);
+        const detail = `${error.name}: ${error.message} | ${url}`;
         catalogSection.setAttribute("aria-busy", "false");
         catalogSection.innerHTML = `
             <div class="error-state">
                 ${ICONS.alert}
                 <p>Couldn't load products. Check your connection and try again.</p>
+                <p style="font-size:12px;opacity:.7;word-break:break-all;">${escapeHtml(detail)}</p>
                 <button type="button" id="retry-load-btn">Retry</button>
             </div>`;
         const retryBtn = document.getElementById("retry-load-btn");

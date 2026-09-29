@@ -26,6 +26,13 @@ init_db()              # safe to run every boot — only creates what's missing
 
 app = FastAPI(lifespan=lifespan)
 
+@app.middleware("http")
+async def log_requests(request, call_next):
+    print(f"--> {request.method} {request.url.path}", flush=True)
+    response = await call_next(request)
+    print(f"<-- {response.status_code} {request.url.path}", flush=True)
+    return response
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
