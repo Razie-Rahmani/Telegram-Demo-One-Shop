@@ -37,7 +37,7 @@ ADMIN_API_TOKEN = os.getenv("ADMIN_API_TOKEN")
 
 # --- Shop identity ---
 # Template pulls both out so a new shop is a .env edit, not a code edit.
-SHOP_NAME = os.getenv("SHOP_NAME", "My Shop")
+SHOP_NAME = os.getenv("SHOP_NAME", "Dokme Stationary Store")
 SHOP_FRONTEND_URL = os.getenv("SHOP_FRONTEND_URL")
 
 # --- Startup sanity checks ---
