@@ -7,7 +7,7 @@ exactly one Bot and one Dispatcher for the whole app.
 """
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, APIRouter, Request
+from fastapi import FastAPI, APIRouter, Request, HTTPException
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -23,7 +23,7 @@ router = APIRouter()
 @router.post(WEBHOOK_PATH)
 async def telegram_webhook(request: Request):
     if request.headers.get("X-Telegram-Bot-Api-Secret-Token") != WEBHOOK_SECRET:
-        return {"ok": False}, 401
+        raise HTTPException(status_code=401, detail="Invalid secret token")
 
     data = await request.json()
     update = Update.model_validate(data, context={"bot": bot})
